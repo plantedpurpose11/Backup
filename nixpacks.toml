@@ -1,0 +1,3 @@
+[nodejs]
+nodeVersion = "18"
+installPnpm = false
