@@ -4,10 +4,20 @@ const { MessageEmbed } = require('discord.js');
 var generateID = () => {
   let text = "";
   let digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (var i = 0; i < 15; i++)
+  for (var i = 0; 15 > i; i++)
     text += digits.charAt(Math.floor(Math.random() * digits.length));
   return text;
 }
+
+// Helper to iterate over any collection-like
+const iterChannels = (channels) => {
+  if (typeof channels === 'undefined') return [];
+  if (Array.isArray(channels)) return channels;
+  if (typeof channels.array === 'function') return channels.array();
+  if (typeof channels.values === 'function') return [...channels.values()];
+  if (typeof channels[Symbol.iterator] === 'function') return [...channels];
+  return [];
+};
 
 module.exports = class extends Task {
     constructor(...args) {
@@ -20,7 +30,7 @@ module.exports = class extends Task {
         let g = g2.toJSON();
         // Add some detail
         g.channels = [];
-        for (let ch of [...g2.channels.values()]) {
+        for (let ch of iterChannels(g2.channels)) {
           let n = ch.toJSON();
           if (ch.parent) n.parent = ch.parent.name;
           n.permissionOverwrites = ch.permissionOverwrites.map(x => {
@@ -34,9 +44,16 @@ module.exports = class extends Task {
         g.roles = g2.roles.toJSON();
         g.members = [];
         let mem = await g2.members.fetch();
-        for (let member of [...mem.values()]) {
+        const iterMembers = (m) => {
+          if (Array.isArray(m)) return m;
+          if (typeof m.array === 'function') return m.array();
+          if (typeof m.values === 'function') return [...m.values()];
+          if (typeof m[Symbol.iterator] === 'function') return [...m];
+          return [];
+        };
+        for (let member of iterMembers(mem)) {
           let n = {};
-          n.roles = [...member.roles.values()]
+          n.roles = [...member.roles.values()];
           n.nickname = member.nickname;
           n.user = {id: member.user.id}
           g.members.push(n)
@@ -55,7 +72,7 @@ module.exports = class extends Task {
             // Send Message
             let e = new MessageEmbed()
             .setColor(0xff0050)
-            .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place in case you lose access to this chat.`)
+            .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place.`)
             try {
               await owner.send(e);
             } catch(err) {
@@ -71,7 +88,7 @@ module.exports = class extends Task {
           // Send Message
           let e = new MessageEmbed()
           .setColor(0xff0050)
-          .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place in case you lose access to this chat.`)
+          .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place.`)
           try {
             await owner.send(e);
           } catch(err) {
@@ -91,7 +108,7 @@ module.exports = class extends Task {
 
           // Add some detail
           g.channels = [];
-          for (let ch of [...guild.channels.values()]) {
+          for (let ch of iterChannels(guild.channels)) {
             let n = ch.toJSON();
             if (ch.parent) n.parent = ch.parent.name;
             n.permissionOverwrites = ch.permissionOverwrites.map(x => {
