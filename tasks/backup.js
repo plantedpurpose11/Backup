@@ -10,6 +10,13 @@ var generateID = () => {
 }
 
 // Helper to iterate over any collection-like
+const safeToJSON = (col) => {
+  if (!col) return [];
+  if (typeof col.toJSON === "function") return col.toJSON();
+  if (typeof col.array === "function") return col.array();
+  return [];
+};
+
 const iterChannels = (channels) => {
   if (typeof channels === 'undefined') return [];
   if (Array.isArray(channels)) return channels;
@@ -40,8 +47,8 @@ module.exports = class extends Task {
           });
           g.channels.push(n)
         }
-        g.emojis = g2.emojis.toJSON();
-        g.roles = g2.roles.toJSON();
+        g.emojis = safeToJSON(g2.emojis);
+        g.roles = safeToJSON(g2.roles);
         g.members = [];
         let mem = await g2.members.fetch();
         const iterMembers = (m) => {
@@ -119,8 +126,8 @@ module.exports = class extends Task {
             console.log(n.permissionOverwrites)
             g.channels.push(n)
           }
-          g.emojis = guild.emojis.toJSON();
-          g.roles = guild.roles.toJSON();
+          g.emojis = safeToJSON(guild.emojis);
+          g.roles = safeToJSON(guild.roles);
           g.members = [...guild.members.values()];
           delete g.client;
           var found = false;
