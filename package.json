@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "btoa": "*",
-    "discord.js": "^12.11.0",
+    "discord.js": "^12.5.3",
     "dotenv": "*",
     "express": "*",
     "klasa": "^0.5.0",
