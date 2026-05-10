@@ -7,16 +7,16 @@
   },
   "dependencies": {
     "btoa": "*",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "^13.16.0",
     "dotenv": "*",
     "express": "*",
     "klasa": "github:dirigeants/klasa",
     "mongodb": "*",
     "ejs": "*",
-    "node-fetch": "*"
+    "node-fetch": "^2.7.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": ">=18.0.0"
   },
   "license": "MIT"
 }
