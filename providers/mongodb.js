@@ -10,7 +10,7 @@ module.exports = class extends Provider {
 	}
 
 	async init() {
-    const mongoClient = await Mongo.connect(process.env.MongoDB, { useNewUrlParser: true });
+    const mongoClient = await Mongo.connect(process.env.MongoDB, );
 		this.db = mongoClient.db(this.client.options.providers.db);
 	}
 
