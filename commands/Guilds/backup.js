@@ -13,8 +13,13 @@ module.exports = class extends Command {
           return message.channel.send(`You do not have enough permissions to run a backup. You need \`Manage Guild\`.`)
       let res = await this.prompt(message)
       if (res) {
-        message.client.tasks.first().run(message.guild, message.author);
-        message.channel.send(`✅ Backed up the server. Check your DMs for backup key`)
+        try {
+          await message.client.tasks.first().run(message.guild, message.author);
+          message.channel.send(`✅ Backed up the server. Check your DMs for backup key`)
+        } catch (err) {
+          console.error('Backup error:', err);
+          message.channel.send(`❌ Backup failed: ${err.message}`)
+        }
       }
     }
   
