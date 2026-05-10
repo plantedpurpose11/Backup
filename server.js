@@ -4,7 +4,14 @@ const express = require("express");
 const btoa = require("btoa");
 const fetch = require("node-fetch");
 const Discord = require("discord.js");
+const { Permissions, FLAGS } = Discord;
+
 const { Client } = require("klasa");
+
+// Patch AFTER loading to fix permission constants
+setImmediate(() => {
+    Client.basePermissions = new Permissions([FLAGS.VIEW_CHANNEL, FLAGS.SEND_MESSAGES]);
+});
 
 const { CLIENT_ID, CLIENT_SECRET, PREFIX, DOMAIN, INVITE } = process.env;
 
