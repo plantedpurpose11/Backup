@@ -7,5 +7,8 @@
     "numreplicas": 1,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
+  },
+  "env": {
+    "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
   }
 }
