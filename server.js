@@ -12,7 +12,10 @@ const { CLIENT_ID, CLIENT_SECRET, PREFIX, DOMAIN, INVITE } = process.env;
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-app.listen("80");
+const PORT = process.env.PORT || 80;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Express endpoints
 app.get("/discord", (req, res) => {
