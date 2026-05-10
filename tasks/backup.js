@@ -20,7 +20,7 @@ module.exports = class extends Task {
         let g = g2.toJSON();
         // Add some detail
         g.channels = [];
-        for (let ch of g2.channels.array()) {
+        for (let ch of g2.channels.values()) {
           let n = ch.toJSON();
           if (ch.parent) n.parent = ch.parent.name;
           n.permissionOverwrites = ch.permissionOverwrites.map(x => {
@@ -34,9 +34,9 @@ module.exports = class extends Task {
         g.roles = g2.roles.toJSON();
         g.members = [];
         let mem = await g2.members.fetch();
-        for (let member of mem.array()) {
+        for (let member of mem.values()) {
           let n = {};
-          n.roles = member.roles.array()
+          n.roles = member.roles.values()
           n.nickname = member.nickname;
           n.user = {id: member.user.id}
           g.members.push(n)
@@ -86,13 +86,13 @@ module.exports = class extends Task {
           return id;
         }
       } else {
-        for(let guild of this.client.guilds.array()) {
+        for(let guild of this.client.guilds.values()) {
           console.log(guild.name)
           let g = guild.toJSON();
 
           // Add some detail
           g.channels = [];
-          for (let ch of guild.channels.array()) {
+          for (let ch of guild.channels.values()) {
             let n = ch.toJSON();
             if (ch.parent) n.parent = ch.parent.name;
             n.permissionOverwrites = ch.permissionOverwrites.map(x => {
@@ -105,7 +105,7 @@ module.exports = class extends Task {
           }
           g.emojis = guild.emojis.toJSON();
           g.roles = guild.roles.toJSON();
-          g.members = guild.members.array();
+          g.members = guild.members.values();
           delete g.client;
           var found = false;
           for (let oldg of old) {
