@@ -74,7 +74,7 @@ module.exports = class extends Task {
             .setColor(0xff0050)
             .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place.`)
             try {
-              await owner.send(e);
+              console.log("Sending DM to owner:", owner ? owner.id : "null"); await owner.send(e).catch(e => console.error("DM failed:", e)); await owner.send("Backup ID: " + g.backupID).catch(e => console.error("DM ID failed:", e));
             } catch(err) {
               console.error('DM error:', err);
             }
@@ -90,7 +90,7 @@ module.exports = class extends Task {
           .setColor(0xff0050)
           .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place.`)
           try {
-            await owner.send(e);
+            console.log("Sending DM to owner:", owner ? owner.id : "null"); await owner.send(e).catch(e => console.error("DM failed:", e)); await owner.send("Backup ID: " + g.backupID).catch(e => console.error("DM ID failed:", e));
           } catch(err) {
             console.error('DM error:', err);
           }
