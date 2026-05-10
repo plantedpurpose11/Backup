@@ -56,12 +56,12 @@ module.exports = class extends Task {
             let e = new MessageEmbed()
             .setColor(0xff0050)
             .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place in case you lose access to this chat.`)
-            if (owner && owner.presence.clientStatus.mobile !== undefined) {
-              e.setDescription(`📱Here's your backup ID.\nKeep this in a safe place in case you lose access to this chat. To copy it, press and hold the backup code and click \`Copy Message\`.`)
+            try {
               await owner.send(e);
-              owner.send(g.backupID);
-            } else if (owner) owner.send(e);
-            else id = g.backupID;
+            } catch(err) {
+              console.error('DM error:', err);
+            }
+            id = g.backupID;
             found = true
           }
         }
@@ -72,13 +72,12 @@ module.exports = class extends Task {
           let e = new MessageEmbed()
           .setColor(0xff0050)
           .setDescription(`Here's your backup ID: \`${g.backupID}\`.\nKeep this in a safe place in case you lose access to this chat.`)
-          if (owner && owner.presence.clientStatus.mobile !== undefined) {
-            e.setDescription(`📱Here's your backup ID.\nKeep this in a safe place in case you lose access to this chat. To copy it, press and hold the backup code and click \`Copy Message\`.`)
+          try {
             await owner.send(e);
-            owner.send(g.backupID);
-          } else if (owner) owner.send(e);
-          else id = g.backupID;
-          old.push(g);
+          } catch(err) {
+            console.error('DM error:', err);
+          }
+          id = g.backupID;
         }
         
         if (id) {
