@@ -10,7 +10,7 @@
     "discord.js": "^13.16.0",
     "dotenv": "*",
     "express": "*",
-    "klasa": "github:dirigeants/klasa",
+    "klasa": "^0.5.0",
     "mongodb": "*",
     "ejs": "*",
     "node-fetch": "^2.7.0"
