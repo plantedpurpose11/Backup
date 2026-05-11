@@ -102,6 +102,7 @@ module.exports = class extends Task {
             console.error('DM error:', err);
           }
           id = g.backupID;
+          old.push(g);
         }
         
         if (id) {
