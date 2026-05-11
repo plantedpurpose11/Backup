@@ -1,3 +1,4 @@
+const iterChannels = (c) => c.array ? c.array() : [...c.values()];
 const { Task } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
@@ -24,7 +25,7 @@ module.exports = class extends Task {
 
       
       // Roles
-      for (let role of guild.roles.array()) {
+      for (let role of iterChannels(guild.roles)) {
         try {
           if (role.id !== role.guild.id && ! role.managed) {
             await role.delete();
