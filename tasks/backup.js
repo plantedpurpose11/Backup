@@ -60,7 +60,7 @@ module.exports = class extends Task {
         };
         for (let member of iterMembers(mem)) {
           let n = {};
-          n.roles = [...member.roles.values()];
+          n.roles = iterChannels(member.roles);
           n.nickname = member.nickname;
           n.user = {id: member.user.id}
           g.members.push(n)
