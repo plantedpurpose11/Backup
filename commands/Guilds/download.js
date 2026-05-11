@@ -11,7 +11,7 @@ module.exports = class extends Command {
     }
     async run(message, [ID]) {
       let b = JSON.parse(message.client.settings.backups); console.log("Looking for:", ID, "in backups:", JSON.stringify(b.map(x => x.backupID)));
-      let chosen = b.find(b => b.backupID == ID);
+      let chosen = b.find(b => String(b.backupID) === String(ID)); console.log("Found:", chosen ? chosen.backupID : "null");
       if (!chosen) return message.channel.send(`❌ Invalid backup ID`);
       else message.delete();
       
