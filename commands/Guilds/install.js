@@ -1,6 +1,13 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
+// Helper for safe role lookup
+function findManagedRole(roles) {
+    if (!roles) return null;
+    const all = roles.array ? roles.array() : [...roles.values()];
+    return all.find(x => x.managed);
+}
+
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
@@ -11,12 +18,6 @@ module.exports = class extends Command {
             usage: "[ID:string]"
         });
     }
-    // Helper for safe role lookup
-    findManagedRole = = (roles) => {
-        if (!roles) return null;
-        const all = roles.array ? roles.array() : [...roles.values()];
-        return all.find(x => x.managed);
-    };
 
     async run(message, [ID]) {
         let b = JSON.parse(message.client.settings.backups);
