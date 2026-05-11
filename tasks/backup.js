@@ -105,7 +105,7 @@ module.exports = class extends Task {
         }
         
         if (id) {
-          console.log("Saving backup:", JSON.stringify(old).slice(0,50)); await this.client.settings.update("backups", JSON.stringify(old));
+          console.log("Saving backup:", JSON.stringify(old).slice(0,50)); this.client.settings.update("backups", JSON.stringify(old));
           return id;
         }
       } else {
@@ -140,6 +140,6 @@ module.exports = class extends Task {
           if (!found) old.push(g);
         }
       }
-      return console.log("Saving backup:", JSON.stringify(old).slice(0,50)); await this.client.settings.update("backups", JSON.stringify(old));
+      return console.log("Saving backup:", JSON.stringify(old).slice(0,50)); this.client.settings.update("backups", JSON.stringify(old));
     }
 };
