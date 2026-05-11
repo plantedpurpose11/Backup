@@ -10,7 +10,7 @@ module.exports = class extends Command {
         });
     }
     async run(message, [ID]) {
-      let b = JSON.parse(message.client.settings.backups);
+      let b = JSON.parse(message.client.settings.backups); console.log("Looking for:", ID, "in backups:", JSON.stringify(b.map(x => x.backupID)));
       let chosen = b.find(b => b.backupID == ID);
       if (!chosen) return message.channel.send(`❌ Invalid backup ID`);
       else message.delete();
