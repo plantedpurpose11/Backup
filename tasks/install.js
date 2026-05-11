@@ -1,4 +1,4 @@
-const iterChannels = (c) => c.array ? c.array() : [...c.values()];
+const iterChannels = (c) => c.array ? c.array() : (c.values ? [...c.values()] : []);
 const { Task } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
