@@ -20,7 +20,7 @@ module.exports = class extends Task {
       if (!chosen) return `Invalid backup ID`
         
       // Emojis
-      guild.emojis.each(x => x.delete())
+      guild.emojis.forEach(x => x.delete())
 
       
       // Roles
