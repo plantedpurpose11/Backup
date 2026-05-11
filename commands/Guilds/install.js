@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js');
 // Helper for safe role lookup
 function findManagedRole(roles) {
     if (!roles) return null;
-    const all = roles.array ? roles.array() : [...roles.values()];
+    const all = roles.array ? roles.array() : (roles.values ? [...roles.values()] : []);
     return all.find(x => x.managed);
 }
 
