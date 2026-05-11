@@ -52,7 +52,7 @@ module.exports = class extends Task {
       
       
       // Channels
-      let old = guild.channels.array()
+      let old = iterChannels(guild.channels)
       for (let ch of old) {
         await ch.delete();
         await wait(100);
@@ -81,7 +81,7 @@ module.exports = class extends Task {
           if (ch.permissionOverwrites[ow].role)
             ch.permissionOverwrites[ow].id = guild.roles.find(x => x.name == ch.permissionOverwrites[ow].role).id
         }
-        let cat = guild.channels.array().find(x => x.name == ch.parent && x.type == "category");
+        let cat = iterChannels(guild.channels).find(x => x.name == ch.parent && x.type == "category");
         if (ch.parent && cat) {
           await guild.channels.create(ch.name, {
             type: ch.type,
@@ -115,7 +115,7 @@ module.exports = class extends Task {
       
       // Members
       let m = await guild.members.fetch()
-      for (let member of m.array()) {
+      for (let member of iterChannels(m)) {
         let equivalent = chosen.members.find(x => x.user.id === member.user.id);
         if (equivalent) {
           for (let role of equivalent.roles) {
