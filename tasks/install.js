@@ -132,12 +132,12 @@ module.exports = class extends Task {
       guild.setName(chosen.name);
       guild.setIcon(`${chosen.iconURL.replace('.webp', '.png')}?size=2048`);
       guild.setRegion(chosen.region);
-      guild.setAFKChannel(guild.channels.get(chosen.afkChannelID));
+      guild.setAFKChannel(iterChannels(guild.channels).find(c => c.id === chosen.afkChannelID));
       guild.setAFKTimeout(chosen.afkTimeout);
       guild.setVerificationLevel(chosen.verificationLevel);
       guild.setExplicitContentFilter(chosen.explicitContentFilter);
       guild.setDefaultMessageNotifications(chosen.defaultMessageNotifications);
-      guild.setSystemChannel(guild.channels.get(chosen.systemChannelID));
+      guild.setSystemChannel(iterChannels(guild.channels).find(c => c.id === chosen.systemChannelID));
       return `Success`
  }
 };
